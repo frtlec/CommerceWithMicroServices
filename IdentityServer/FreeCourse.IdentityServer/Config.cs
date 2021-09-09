@@ -14,7 +14,8 @@ namespace FreeCourse.IdentityServer
     {
         public static IEnumerable<ApiResource> ApiResources => new ApiResource[] {
             new ApiResource(CustomIdentityServerConstants.resource_catalog){Scopes={ CustomIdentityServerConstants.catalog_fullpermission}},
-            new ApiResource(CustomIdentityServerConstants.photo_stock_catalog){Scopes={ CustomIdentityServerConstants.photo_stock_fullpermission}},
+            new ApiResource(CustomIdentityServerConstants.resource_photo_stock){Scopes={ CustomIdentityServerConstants.photo_stock_fullpermission}},
+                      new ApiResource(CustomIdentityServerConstants.resource_basket){Scopes={ CustomIdentityServerConstants.basket_fullpermission}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
         public static IEnumerable<IdentityResource> IdentityResources =>
@@ -32,6 +33,7 @@ namespace FreeCourse.IdentityServer
             {
                new ApiScope(CustomIdentityServerConstants.catalog_fullpermission,"Catalog API için full erişim"),
                 new ApiScope(CustomIdentityServerConstants.photo_stock_fullpermission,"Photo Stock API için full erişim"),
+                new ApiScope(CustomIdentityServerConstants.basket_fullpermission,"Basket API için full erişim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -55,6 +57,7 @@ namespace FreeCourse.IdentityServer
                     ClientSecrets= {new Secret(CustomIdentityServerConstants.WebMvc_ClientSecrets.Sha256())},
                     AllowedGrantTypes= GrantTypes.ResourceOwnerPassword,
                     AllowedScopes={ 
+                         CustomIdentityServerConstants.basket_fullpermission,
                          IdentityServerConstants.StandardScopes.Email,
                          IdentityServerConstants.StandardScopes.OpenId,
                          IdentityServerConstants.StandardScopes.Profile,

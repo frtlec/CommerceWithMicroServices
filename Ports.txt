@@ -2,3 +2,4 @@ Services
  -identityserver=> 5001
  --catalog=> 5011
  --photostock=>  5012
+ --basket=>  5013
