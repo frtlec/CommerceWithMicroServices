@@ -5,3 +5,4 @@ Services
  --basket=>  5013
  --discountAPI=>5014
  --order api=>5015
+ --fakepaymentapi => 5016
