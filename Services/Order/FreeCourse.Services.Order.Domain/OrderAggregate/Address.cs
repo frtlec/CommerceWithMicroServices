@@ -23,7 +23,10 @@ namespace FreeCourse.Services.Order.Domain.OrderAggregate
             ZipCode = zipCode;
             Line = line;
         }
+        public Address()
+        {
 
+        }
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Province;
