@@ -12,12 +12,14 @@ namespace FreeCourse.Shared.Constants
         public const string resource_discount = "resource_discount";
         public const string resource_order = "resource_order";
         public const string resource_payment = "resource_payment";
+        public const string resource_gateaway = "resource_gateaway";
         public const string catalog_fullpermission = "catalog_fullpermission";
         public const string photo_stock_fullpermission = "photo_stock_fullpermission";
         public const string basket_fullpermission = "basket_fullpermission";
         public const string order_fullpermission = "order_fullpermission";
         public const string discount_fullpermission = "discount_fullpermission";
         public const string payment_fullpermission = "payment_fullpermission";
+        public const string gateaway_fullpermission = "gateway_fullpermission";
         public const string discount_write = "discount_write";
         public const string discount_read = "discount_read";
         public const string WebMvc_ClientId = "WebMvcClient";
