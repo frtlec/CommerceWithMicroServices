@@ -14,12 +14,13 @@ namespace FreeCourse.IdentityServer
     {
         public static IEnumerable<ApiResource> ApiResources => new ApiResource[] {
             new ApiResource(CustomIdentityServerConstants.resource_catalog){Scopes={ CustomIdentityServerConstants.catalog_fullpermission}},
-            new ApiResource(CustomIdentityServerConstants.resource_photo_stock){Scopes={ CustomIdentityServerConstants.photo_stock_fullpermission}},
-                      new ApiResource(CustomIdentityServerConstants.resource_basket){Scopes={ CustomIdentityServerConstants.basket_fullpermission}},
-                      new ApiResource(CustomIdentityServerConstants.resource_discount){Scopes={ CustomIdentityServerConstants.discount_fullpermission}},
+             new ApiResource(CustomIdentityServerConstants.resource_photo_stock){Scopes={ CustomIdentityServerConstants.photo_stock_fullpermission}},
+                new ApiResource(CustomIdentityServerConstants.resource_basket){Scopes={ CustomIdentityServerConstants.basket_fullpermission}},
+                         new ApiResource(CustomIdentityServerConstants.resource_discount){Scopes={ CustomIdentityServerConstants.discount_fullpermission}},
                           new ApiResource(CustomIdentityServerConstants.resource_order){Scopes={ CustomIdentityServerConstants.order_fullpermission}},
-                          new ApiResource(CustomIdentityServerConstants.resource_payment){Scopes={ CustomIdentityServerConstants.payment_fullpermission}},
-            new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
+                            new ApiResource(CustomIdentityServerConstants.resource_payment){Scopes={ CustomIdentityServerConstants.payment_fullpermission}},
+                              new ApiResource(CustomIdentityServerConstants.resource_gateaway){Scopes={ CustomIdentityServerConstants.gateaway_fullpermission}},
+                                 new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
 
         };
         public static IEnumerable<IdentityResource> IdentityResources =>
@@ -41,6 +42,7 @@ namespace FreeCourse.IdentityServer
                  new ApiScope(CustomIdentityServerConstants.discount_fullpermission,"Discount API için full erişim"),
                   new ApiScope(CustomIdentityServerConstants.order_fullpermission,"Order API için full erişim"),
                    new ApiScope(CustomIdentityServerConstants.payment_fullpermission,"Payment API için full erişim"),
+                     new ApiScope(CustomIdentityServerConstants.gateaway_fullpermission,"Gateway için full erişim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -54,7 +56,7 @@ namespace FreeCourse.IdentityServer
                     ClientId=CustomIdentityServerConstants.WebMvc_ClientId,
                     ClientSecrets= {new Secret(CustomIdentityServerConstants.WebMvc_ClientSecrets.Sha256())},
                     AllowedGrantTypes= GrantTypes.ClientCredentials,
-                    AllowedScopes={ CustomIdentityServerConstants.catalog_fullpermission, CustomIdentityServerConstants.photo_stock_fullpermission, IdentityServerConstants.LocalApi.ScopeName }
+                    AllowedScopes={ CustomIdentityServerConstants.catalog_fullpermission,CustomIdentityServerConstants.gateaway_fullpermission, CustomIdentityServerConstants.photo_stock_fullpermission, IdentityServerConstants.LocalApi.ScopeName }
                 },
                  new Client
                 {
@@ -64,6 +66,7 @@ namespace FreeCourse.IdentityServer
                     ClientSecrets= {new Secret(CustomIdentityServerConstants.WebMvc_ClientSecrets.Sha256())},
                     AllowedGrantTypes= GrantTypes.ResourceOwnerPassword,
                     AllowedScopes={
+                         CustomIdentityServerConstants.gateaway_fullpermission,
                          CustomIdentityServerConstants.basket_fullpermission,
                          CustomIdentityServerConstants.discount_fullpermission,
                            CustomIdentityServerConstants.order_fullpermission,
