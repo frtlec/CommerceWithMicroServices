@@ -1,6 +1,7 @@
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services;
 using FreeCourse.Web.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +33,13 @@ namespace FreeCourse.Web
                           .AddRazorRuntimeCompilation();
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                opts=> {
+                    opts.LoginPath = "/Auth/SignIn";
+                    opts.ExpireTimeSpan = TimeSpan.FromDays(60);
+                    opts.Cookie.Name = "commercemvc";
+                });
             services.AddControllersWithViews();
         }
 
@@ -49,7 +57,7 @@ namespace FreeCourse.Web
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
