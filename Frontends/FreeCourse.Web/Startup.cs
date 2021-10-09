@@ -1,4 +1,6 @@
 using FreeCourse.Web.Models;
+using FreeCourse.Web.Services;
+using FreeCourse.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +26,8 @@ namespace FreeCourse.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddHttpContextAccessor();
+            services.AddHttpClient<IIdentityService, IdentityService>();
             services.AddRazorPages()
                           .AddRazorRuntimeCompilation();
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
