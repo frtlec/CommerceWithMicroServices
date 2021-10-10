@@ -16,7 +16,7 @@ namespace FreeCourse.Services.FakePayment.Controllers
         [HttpPost]
         public IActionResult ReceivePayment()
         {
-            return CreateActionREsultInstance<NoContent>(Response<NoContent>.Success(200));
+            return CreateActionResultInstance<NoContent>(Response<NoContent>.Success(200));
         }
     }
 }

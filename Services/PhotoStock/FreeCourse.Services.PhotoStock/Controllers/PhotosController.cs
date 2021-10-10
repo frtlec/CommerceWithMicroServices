@@ -21,7 +21,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
         {
             if (photo==null || photo.Length<1)
             {
-                return CreateActionREsultInstance(Response<PhotoDto>.Fail("photo is empty", 400));
+                return CreateActionResultInstance(Response<PhotoDto>.Fail("photo is empty", 400));
             }
 
 
@@ -33,7 +33,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
 
             PhotoDto photoDto = new() { Url = returnPath };
 
-            return CreateActionREsultInstance(Response<PhotoDto>.Success(photoDto, 200));
+            return CreateActionResultInstance(Response<PhotoDto>.Success(photoDto, 200));
 
         }
     
@@ -41,9 +41,9 @@ namespace FreeCourse.Services.PhotoStock.Controllers
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/photos", photoUrl );
             if (!System.IO.File.Exists(path)) 
-                return CreateActionREsultInstance(Response<NoContent>.Fail("photo not found", 404));
+                return CreateActionResultInstance(Response<NoContent>.Fail("photo not found", 404));
             System.IO.File.Delete(path);
-            return CreateActionREsultInstance(Response<NoContent>.Success(204));
+            return CreateActionResultInstance(Response<NoContent>.Success(204));
         }
     
     }

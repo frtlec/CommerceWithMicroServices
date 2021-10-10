@@ -12,7 +12,7 @@ namespace FreeCourse.Shared.Constants
         public const string resource_discount = "resource_discount";
         public const string resource_order = "resource_order";
         public const string resource_payment = "resource_payment";
-        public const string resource_gateaway = "resource_gateaway";
+        public const string resource_gateway = "resource_gateway";
         public const string catalog_fullpermission = "catalog_fullpermission";
         public const string photo_stock_fullpermission = "photo_stock_fullpermission";
         public const string basket_fullpermission = "basket_fullpermission";
