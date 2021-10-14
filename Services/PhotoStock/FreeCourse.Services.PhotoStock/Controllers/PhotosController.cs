@@ -25,7 +25,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
             }
 
 
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", photo.FileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/photos", photo.FileName);
             using var stream = new FileStream(path, FileMode.Create);
             await photo.CopyToAsync(stream, cancellationToken);
 
