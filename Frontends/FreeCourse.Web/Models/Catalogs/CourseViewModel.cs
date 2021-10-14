@@ -16,6 +16,7 @@ namespace FreeCourse.Web.Models.Catalogs
 
         public string UserId { get; set; }
         public string Picture { get; set; }
+        public string StockPictureUrl { get; set; }
         public DateTime CreatedTime { get; set; }
 
         public FeatureViewModel Feature { get; set; }
