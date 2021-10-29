@@ -39,6 +39,10 @@ namespace FreeCourse.Services.PhotoStock.Controllers
     
         public IActionResult PhotoDelete(string photoUrl)
         {
+            if (string.IsNullOrEmpty(photoUrl))
+            {
+                return CreateActionResultInstance(Response<NoContent>.Success(204));
+            }
             var path = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/photos", photoUrl );
             if (!System.IO.File.Exists(path)) 
                 return CreateActionResultInstance(Response<NoContent>.Fail("photo not found", 404));
