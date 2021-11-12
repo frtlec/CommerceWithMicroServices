@@ -7,6 +7,10 @@ namespace FreeCourse.Web.Models.Orders
 {
     public class OrderViewModel
     {
+        public OrderViewModel()
+        {
+            this.OrderItems = new();
+        }
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; }
 
