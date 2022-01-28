@@ -3,21 +3,24 @@ using FreeCourse.Services.Catalog.Dtos;
 using FreeCourse.Services.Catalog.Models;
 using FreeCourse.Services.Catalog.Settings;
 using FreeCourse.Shared.Dtos;
+using Mass = MassTransit;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FreeCourse.Shared.Messages;
 
 namespace FreeCourse.Services.Catalog.Services
 {
-    public class CourseService:ICourseService
+    public class CourseService : ICourseService
     {
         private readonly IMongoCollection<Course> _courseCollection;
         private readonly IMongoCollection<Category> _categoryCollection;
         private readonly IMapper _mapper;
+        private readonly Mass.IPublishEndpoint _publishEndpoint;
 
-        public CourseService(IMapper mapper, IDataBaseSettings dataBaseSettings)
+        public CourseService(IMapper mapper, IDataBaseSettings dataBaseSettings, Mass.IPublishEndpoint publishEndpoint)
         {
             var client = new MongoClient(dataBaseSettings.ConnectionString);
             var dataBase = client.GetDatabase(dataBaseSettings.DatabaseName);
@@ -27,6 +30,7 @@ namespace FreeCourse.Services.Catalog.Services
 
 
             _mapper = mapper;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<Response<List<CourseDto>>> GetAllAsync()
@@ -45,7 +49,7 @@ namespace FreeCourse.Services.Catalog.Services
                 courses = new List<Course>();
             }
 
-            return Response<List<CourseDto>>.Success(_mapper.Map<List<CourseDto>>(courses),200);
+            return Response<List<CourseDto>>.Success(_mapper.Map<List<CourseDto>>(courses), 200);
 
         }
 
@@ -84,23 +88,30 @@ namespace FreeCourse.Services.Catalog.Services
             var newCourse = _mapper.Map<Course>(courseCreateDto);
             await _courseCollection.InsertOneAsync(newCourse);
 
-            return Response<CourseDto>.Success(_mapper.Map<CourseDto>(newCourse),200);
+            return Response<CourseDto>.Success(_mapper.Map<CourseDto>(newCourse), 200);
         }
         public async Task<Response<NoContent>> UpdateAsync(CourseUpdateDto courseUpdateDto)
         {
             var updateCourse = _mapper.Map<Course>(courseUpdateDto);
-            var result = await _courseCollection.FindOneAndReplaceAsync(x=>x.Id==courseUpdateDto.Id,updateCourse);
-            if (result==null)
+            var result = await _courseCollection.FindOneAndReplaceAsync(x => x.Id == courseUpdateDto.Id, updateCourse);
+            if (result == null)
             {
-                return Response<NoContent>.Fail("Course not found",404);
+                return Response<NoContent>.Fail("Course not found", 404);
             }
+
+            await _publishEndpoint.Publish<CourseNameChangedEvent>(
+                    new CourseNameChangedEvent
+                    {
+                        CourseId=courseUpdateDto.Id,
+                        UpdateName=updateCourse.Name,
+                    });
 
             return Response<NoContent>.Success(204);
         }
         public async Task<Response<NoContent>> DeleteAsync(string id)
         {
-            var result = await _courseCollection.DeleteOneAsync(x=>x.Id== id);
-            if (result.DeletedCount>0)
+            var result = await _courseCollection.DeleteOneAsync(x => x.Id == id);
+            if (result.DeletedCount > 0)
             {
                 return Response<NoContent>.Success(204);
             }
