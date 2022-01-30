@@ -6,6 +6,10 @@ namespace FreeCourse.Shared.Constants
 {
     public class CustomIdentityServerConstants
     {
+        public const string TokenExchangeGrantTypes = "urn:ietf:params:oauth:grant-type:token-exchange";
+        public const string TokenExchangeClientId = "TokenExchangeClient";
+
+
         public const string resource_catalog = "resource_catalog";
         public const string resource_photo_stock = "photo_stock_catalog";
         public const string resource_basket = "resource_basket";
