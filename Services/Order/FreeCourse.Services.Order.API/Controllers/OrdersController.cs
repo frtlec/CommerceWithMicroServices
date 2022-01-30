@@ -29,7 +29,7 @@ namespace FreeCourse.Services.Order.API.Controllers
         {
             var response = await _mediator.Send(new GetOrdersByUserIdQuery {UserId= _sharedIdentityService.GetUserId });
 
-            return CreateActionREsultInstance(response);
+            return CreateActionResultInstance(response);
         }
         [HttpPost]
         public async Task<IActionResult> SaveOrder(CreateOrderCommand createOrderCommand )
@@ -37,7 +37,7 @@ namespace FreeCourse.Services.Order.API.Controllers
 
             var response = await _mediator.Send(createOrderCommand);
 
-            return CreateActionREsultInstance(response);
+            return CreateActionResultInstance(response);
         }
     }
 }

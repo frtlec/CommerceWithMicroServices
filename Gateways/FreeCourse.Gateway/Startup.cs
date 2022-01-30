@@ -27,10 +27,10 @@ namespace FreeCourse.Gateway
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication().AddJwtBearer("GateawayAuthenticationScheme", options => {
+            services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme", options => {
 
                 options.Authority = Configuration["IdentityServerURL"];
-                options.Audience = CustomIdentityServerConstants.resource_gateaway;
+                options.Audience = CustomIdentityServerConstants.resource_gateway;
                 options.RequireHttpsMetadata = false;
             });
             services.AddOcelot();
