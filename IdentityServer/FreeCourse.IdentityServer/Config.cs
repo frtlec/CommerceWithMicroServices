@@ -58,7 +58,8 @@ namespace FreeCourse.IdentityServer
                     AllowedGrantTypes= GrantTypes.ClientCredentials,
                     AllowedScopes={ CustomIdentityServerConstants.catalog_fullpermission,CustomIdentityServerConstants.gateaway_fullpermission, CustomIdentityServerConstants.photo_stock_fullpermission, IdentityServerConstants.LocalApi.ScopeName }
                 },
-                 new Client
+
+                   new Client
                 {
                     ClientName="Asp.Net Core MVC",
                     ClientId=CustomIdentityServerConstants.WebMvc_clientForUser,
@@ -68,9 +69,7 @@ namespace FreeCourse.IdentityServer
                     AllowedScopes={
                          CustomIdentityServerConstants.gateaway_fullpermission,
                          CustomIdentityServerConstants.basket_fullpermission,
-                         CustomIdentityServerConstants.discount_fullpermission,
                            CustomIdentityServerConstants.order_fullpermission,
-                           CustomIdentityServerConstants.payment_fullpermission,
                          IdentityServerConstants.StandardScopes.Email,
                          IdentityServerConstants.StandardScopes.OpenId,
                          IdentityServerConstants.StandardScopes.Profile,
@@ -82,6 +81,19 @@ namespace FreeCourse.IdentityServer
                     RefreshTokenExpiration=TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime=(int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
                     RefreshTokenUsage=TokenUsage.ReUse
+                },
+                       new Client
+                {
+                    ClientName="Token Exchange Client",
+                    ClientId=CustomIdentityServerConstants.TokenExchangeClientId,
+                    ClientSecrets= {new Secret(CustomIdentityServerConstants.WebMvc_ClientSecrets.Sha256())},
+                    AllowedGrantTypes= new[]{ CustomIdentityServerConstants.TokenExchangeGrantTypes},
+                    AllowedScopes={
+
+                           CustomIdentityServerConstants.payment_fullpermission,
+                         CustomIdentityServerConstants.discount_fullpermission,
+                             IdentityServerConstants.StandardScopes.OpenId
+                     }
                 },
             };
     }
