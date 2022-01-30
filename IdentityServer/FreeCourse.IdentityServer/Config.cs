@@ -89,7 +89,6 @@ namespace FreeCourse.IdentityServer
                     ClientSecrets= {new Secret(CustomIdentityServerConstants.WebMvc_ClientSecrets.Sha256())},
                     AllowedGrantTypes= new[]{ CustomIdentityServerConstants.TokenExchangeGrantTypes},
                     AllowedScopes={
-
                            CustomIdentityServerConstants.payment_fullpermission,
                          CustomIdentityServerConstants.discount_fullpermission,
                              IdentityServerConstants.StandardScopes.OpenId
