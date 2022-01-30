@@ -32,6 +32,28 @@ namespace FreeCourse.Services.Basket.Services
             }
             return Response<BasketDto>.Success(JsonSerializer.Deserialize<BasketDto>(existBasket),200);
         }
+       
+        public async Task<Response<List<BasketDto>>> GetAllBasket()
+        {
+            var db =  _redisService.GetDb();
+
+            var keys = _redisService.GetKeys(db);
+
+            List<BasketDto> baskets = new();
+            foreach (var userId in keys)
+            {
+                var basket=await GetBasket(userId);
+                if (!basket.IsSuccessful)
+                {
+                    throw new Exception("Couldn't get basket");
+                }
+                baskets.Add(basket.Data);
+            }
+
+
+            return Response<List<BasketDto>>.Success(baskets, 200);
+
+        }
 
         public async Task<Response<bool>> SaveOrUpdate(BasketDto basketDto)
         {

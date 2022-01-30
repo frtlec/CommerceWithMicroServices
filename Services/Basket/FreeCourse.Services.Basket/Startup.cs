@@ -1,7 +1,9 @@
+using FreeCourse.Services.Basket.Consumers;
 using FreeCourse.Services.Basket.Services;
 using FreeCourse.Services.Basket.Settings;
 using FreeCourse.Shared.Constants;
 using FreeCourse.Shared.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +36,23 @@ namespace FreeCourse.Services.Basket
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<BasketCourseNameChangedEventConsumer>();
+
+                // Default Port : 5672
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(Configuration["RabbitMQUrl"], "/", host =>
+                    {
+                        host.Username("guest");
+                        host.Password("guest");
+                    });
+                    cfg.ReceiveEndpoint("course-name-change-event-order-service", e => {
+                        e.ConfigureConsumer<BasketCourseNameChangedEventConsumer>(context);
+                    });
+                });
+            });
 
             var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
@@ -48,7 +67,8 @@ namespace FreeCourse.Services.Basket
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddScoped<IBasketService, BasketService>();
             services.Configure<RedisSettings>(Configuration.GetSection("RedisSettings"));
-
+        
+            services.AddMassTransitHostedService();
             services.AddSingleton<RedisService>(sp=> {
 
                 var redisSettings = sp.GetRequiredService<IOptions<RedisSettings>>().Value;

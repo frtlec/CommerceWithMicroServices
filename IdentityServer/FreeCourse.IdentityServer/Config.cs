@@ -19,7 +19,7 @@ namespace FreeCourse.IdentityServer
                          new ApiResource(CustomIdentityServerConstants.resource_discount){Scopes={ CustomIdentityServerConstants.discount_fullpermission}},
                           new ApiResource(CustomIdentityServerConstants.resource_order){Scopes={ CustomIdentityServerConstants.order_fullpermission}},
                             new ApiResource(CustomIdentityServerConstants.resource_payment){Scopes={ CustomIdentityServerConstants.payment_fullpermission}},
-                              new ApiResource(CustomIdentityServerConstants.resource_gateaway){Scopes={ CustomIdentityServerConstants.gateaway_fullpermission}},
+                              new ApiResource(CustomIdentityServerConstants.resource_gateway){Scopes={ CustomIdentityServerConstants.gateaway_fullpermission}},
                                  new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
 
         };

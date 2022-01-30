@@ -5,12 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.2.4" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
     <PackageReference Include="StackExchange.Redis" Version="2.2.50" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Frontends\FreeCourse.Web\FreeCourse.Web.csproj" />
     <ProjectReference Include="..\..\..\shared\FreeCourse.Shared\FreeCourse.Shared.csproj" />
   </ItemGroup>
 

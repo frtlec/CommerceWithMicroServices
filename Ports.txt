@@ -1,6 +1,7 @@
 Services
  -identityserver=> 5001
  -gateways =>5000
+ -Web=>5010
  --catalog=> 5011
  --photostock=>  5012
  --basket=>  5013
