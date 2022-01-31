@@ -32,7 +32,7 @@ namespace FreeCourse.Services.Basket
         }
 
         public IConfiguration Configuration { get; }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -48,9 +48,11 @@ namespace FreeCourse.Services.Basket
                         host.Username("guest");
                         host.Password("guest");
                     });
-                    cfg.ReceiveEndpoint("course-name-change-event-order-service", e => {
-                        e.ConfigureConsumer<BasketCourseNameChangedEventConsumer>(context);
-                    });
+                });
+                        cfg.ReceiveEndpoint("course-name-change-event-order-service", e => {
+                            e.ConfigureConsumer<BasketCourseNameChangedEventConsumer>(context);
+                        });
+                    
                 });
             });
 

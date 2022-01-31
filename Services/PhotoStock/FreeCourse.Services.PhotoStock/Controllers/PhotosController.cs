@@ -37,6 +37,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
 
         }
     
+        [HttpDelete]
         public IActionResult PhotoDelete(string photoUrl)
         {
             if (string.IsNullOrEmpty(photoUrl))
