@@ -7,7 +7,7 @@ services:
   discountdb:
     image: postgres
   identitydb:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    image: justin2004/mssql_server_tiny
   orderdb:
     image: mcr.microsoft.com/mssql/server:2019-latest
   rabbitmq:
